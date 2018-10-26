@@ -1,0 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  background-color: black;
+}
+
+h1, h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 4em;
+}
