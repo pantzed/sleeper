@@ -16,7 +16,6 @@ class Profile extends React.Component {
               <div className="col-12">
                 <span className="color-peach">
                   Here is where you can find and edit your personal informaiton!
-                  New text to check that git is working!
                 </span>
             </div>
             </div>
