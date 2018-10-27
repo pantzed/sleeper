@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
     this.state ={
       activeUser: {first: "Ed", last: "Pantzar"},
+      team: null,
     }
     this.activateUser = this.activateUser.bind(this);
   }

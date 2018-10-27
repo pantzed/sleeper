@@ -9,7 +9,7 @@ const knex = require('knex')(config);
 /* GET users listing. */
 
 router.post('/', (req, res, next) => {
-    let currentUser = null;
+    let user = null;
 
     knex('users')
         .where('username', req.body.username)
@@ -18,14 +18,23 @@ router.post('/', (req, res, next) => {
                 let usernameDoesntExist = new Error('Username does not exist!');
                 return Promise.reject(usernameDoesntExist);
             } else {
-                currentUser = userArr[0];
-                let hashedPassword = currentUser.password;       
+                user = userArr[0];
+                let hashedPassword = user.password;       
                 return bcrypt.compare(req.body.password, hashedPassword);
             }
         })
         .then((result) => {
             if (result) {
-                res.send(currentUser);
+                console.log(user.id);
+                return knex('users')
+                        .join('teams', 'users.id', 'teams.user')
+                        .select(
+                            'users.admin as admin', 'users.first as first', 'users.last as last', 
+                            'teams.team_name as team_name', 'teams.user as user')
+                        .where('user', '=', user.id)
+                        .then((userData) => {
+                            res.send(userData);
+                        });
             } else {
                 let passwordIsIncorrect = new Error('Password is incorrect! Please Try Again.');
                 return Promise.reject(passwordIsIncorrect);

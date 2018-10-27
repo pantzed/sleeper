@@ -8,16 +8,16 @@ class Profile extends React.Component {
     this.setState = {};
   }
   render() {
+    console.log(this.props.user);
     return (
       <div>
         <div className="row d-flex justify-content-center mt-3 mb-5">
           <div className="col-11">
             <h2>Welcome, {`${this.props.user.first}!`}</h2>
-            <div className="row">
-              <div className="col-12">
-                <span className="color-peach">
-                  Here is where you can find and edit your personal informaiton!
-                </span>
+            <h4 className="color-peach">{this.props.user.admin ? `Team Leader` : `Team Member`}</h4>
+            <div className="row border-bottom">
+              <div className="col-6 pb-3">
+                <span>{this.props.user.team_name}</span>
               </div>
             </div>
             <InfoBlock title={'Average Sleep Duration'} data={"7.2 hrs"} />

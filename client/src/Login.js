@@ -37,7 +37,7 @@ class Login extends React.Component {
         return Promise.reject(errorMessage);
       }
       else {
-        this.props.activateUser(data);
+        this.props.activateUser(data[0]);
         this.props.history.push('/profile');
       }
     })

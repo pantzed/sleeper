@@ -18,6 +18,7 @@
     "express": "~4.16.0",
     "knex": "^0.15.2",
     "morgan": "~1.9.0",
+    "npm": "^6.4.1",
     "pg": "^7.6.0"
   },
   "devDependencies": {
@@ -27,5 +28,5 @@
     "node": "8.11.x",
     "npm": "5.6.x"
   },
-  "homepage" : "http://precept-health.herokuapp.com"
+  "homepage": "http://precept-health.herokuapp.com"
 }

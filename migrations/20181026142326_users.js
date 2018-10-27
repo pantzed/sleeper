@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     table.string('first');
     table.string('last');
     table.string('fitbit_auth');
+    table.boolean('admin');
   });
 };
 
