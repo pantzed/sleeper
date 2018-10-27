@@ -8,7 +8,7 @@ const TeamList = (props) => {
           <span>{`${user.first} ${user.last}`}</span>
         </div>
         <div className="col-6">
-          <span>{`6`}</span>
+          <span className="color-peach">{`6`}</span>
         </div>
       </div>
     )
