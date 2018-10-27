@@ -10,6 +10,14 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
+router.get('/', (req, res) => {
+  knex('users')
+  .then((user) => {
+    res.send(user);
+  })
+})
+
+
 router.get('/:username', (req, res) => {
   knex('users').where('username', req.body.username)
   .then((users) => {

@@ -1,30 +1,66 @@
 import * as React from 'react';
-import './profile.css';
 import InfoBlock from './InfoBlock.js';
+import TeamList from './TeamList.js';
+import './profile.css';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.setState = {};
+    this.state = {
+      team: null,
+    };
   }
+
+  componentDidMount() {
+    if (this.props.user.admin) {
+      fetch(`/teams/${this.props.user.team_id}`, {
+        method: 'GET', 
+        mode: 'cors',
+        redirect: "follow",
+        referrer: "no-referrer"
+      })
+      .then(res => res.text())
+      .then(text => JSON.parse(text))
+      .then((data) => {
+        this.setState({
+          team: data,
+        });
+      });
+    }
+  }
+
   render() {
-    console.log(this.props.user);
     return (
       <div>
         <div className="row d-flex justify-content-center mt-3 mb-5">
           <div className="col-11">
             <h2>Welcome, {`${this.props.user.first}!`}</h2>
-            <h4 className="color-peach">{this.props.user.admin ? `Team Leader` : `Team Member`}</h4>
-            <div className="row border-bottom">
-              <div className="col-6 pb-3">
-                <span>{this.props.user.team_name}</span>
+            <h4 className="text-light">Role: {this.props.user.admin ? `Team Leader` : `Team Member`}</h4>
+            <h4 className="text-light"> Team: {this.props.user.team_name}</h4>
+            <div className="row mt-5">
+                {this.state.team && this.props.user.admin &&
+                <div className="col-6"> 
+                  <h4 className="color-blue">Team Status</h4>
+                  <div className="row mb-2 text-light">
+                    <div className="col-6">
+                      <span className="font-weight-bold">Name</span>
+                    </div>
+                    <div className="col-6">
+                      <span className="font-weight-bold">Productivity Est.</span>
+                    </div>
+                  </div>
+                  <TeamList team={this.state.team} />
+                </div>
+                }
+              <div className="col-6">
+                <h4 className="color-blue">My Stats</h4>
+                <InfoBlock title={'Average Sleep Duration'} data={"7.2 hrs"} />
+                <InfoBlock title={'Most Recent Sleep Duration'} data={"8.1 hrs"} />
+                <InfoBlock title={'Average Productivity'} data={"5"} />
+                <InfoBlock title={'Max Productivity'} data={"8"} />
+                <InfoBlock title={'Min Productivity'} data={"1"} />
               </div>
             </div>
-            <InfoBlock title={'Average Sleep Duration'} data={"7.2 hrs"} />
-            <InfoBlock title={'Most Recent Sleep Duration'} data={"8.1 hrs"} />
-            <InfoBlock title={'Average Productivity'} data={"5"} />
-            <InfoBlock title={'Max Productivity'} data={"8"} />
-            <InfoBlock title={'Min Productivity'} data={"1"} />
           </div>
         </div>
       </div>

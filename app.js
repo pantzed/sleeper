@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
-// const matchesRouter = require('./routes/matches');
+const teamsRouter = require('./routes/teams');
 // const messagesRouter = require('./routes/messages');
 // const potentialMatches = require('./routes/potentialMatches');
 
@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-// app.use('/matches', matchesRouter);
+app.use('/teams', teamsRouter);
 // app.use('/messages', messagesRouter);
 // app.use('/potentialMatches', potentialMatches);
 

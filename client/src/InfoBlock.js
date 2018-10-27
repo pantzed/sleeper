@@ -3,10 +3,10 @@ import './InfoBlock.css';
 
 const InfoBlock = (props) => {
   return (
-    <div className="row mt-3">
-      <div className="col-4 p-3">
-        <h4 className="text-light">{ props.title }</h4>
-        <span className="color-peach">
+    <div className="row mt-1">
+      <div className="col p-1 pl-3">
+        <span className="text-light">{ `${props.title}:` }</span>
+        <span className="color-peach pl-2">
           { props.data }
         </span>
       </div>

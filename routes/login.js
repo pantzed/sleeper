@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
                         .join('teams', 'users.id', 'teams.user')
                         .select(
                             'users.admin as admin', 'users.first as first', 'users.last as last', 
-                            'teams.team_name as team_name', 'teams.user as user')
+                            'teams.team_name as team_name', 'teams.user as user', 'teams.id as team_id')
                         .where('user', '=', user.id)
                         .then((userData) => {
                             res.send(userData);
