@@ -11,9 +11,18 @@ class Profile extends React.Component {
     };
   }
 
+  getSleepDuration() {
+    let newArr = this.state.team.map((data) => {
+      return data.sleep_duration;
+    });
+    let jsonData = ([{dataArray: newArr}]);
+    return jsonData;
+  }
+
   componentDidMount() {
+    let helperDate = new Date();
     if (this.props.user.admin) {
-      fetch(`/teams/${this.props.user.team_id}`, {
+      fetch(`/teams/${this.props.user.team_id}/${helperDate}`, {
         method: 'GET', 
         mode: 'cors',
         redirect: "follow",
@@ -25,11 +34,48 @@ class Profile extends React.Component {
         this.setState({
           team: data,
         });
+        return data
+      })
+      .then(() => {
+        let sleepData = this.getSleepDuration();
+        console.log(sleepData);
+        fetch('/teams/productivity', {
+          method: 'POST',
+          mode: 'cors',
+          redirect: "follow",
+          referrer: "no-referrer",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify(sleepData)
+        })
+        .then((res) => {
+          return res.text();
+        })
+        .then((data) => {
+          let jsonData = JSON.parse(data);
+          let regex = /[0-9.]*/gm
+          let matches = jsonData[0].match(regex);
+          let predictedString = matches.filter((el) => {
+            if (el !== undefined) {
+              return el;
+            }
+          });
+          let predictedFloat = predictedString.map((el) => parseFloat(el));
+          let newTeamState = this.state.team;
+          newTeamState.forEach((el, index) => {
+            el.prod_est = predictedFloat[index];
+          });
+          this.setState({
+            team: newTeamState,
+          });
+        });
       });
     }
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <div className="row d-flex justify-content-center mt-3 mb-5">
@@ -39,14 +85,17 @@ class Profile extends React.Component {
             <h4 className="text-light">Team: <span className="color-peach">{this.props.user.team_name}</span></h4>
               {this.state.team && this.props.user.admin &&
               <div className="row mt-5">
-                <div className="col-6"> 
+                <div className="col-12"> 
                   <h4 className="color-blue">Team Status</h4>
                   <div className="row mb-2 text-light">
-                    <div className="col-6">
+                    <div className="col-4">
                       <span className="font-weight-bold">Name</span>
                     </div>
-                    <div className="col-6">
-                      <span className="font-weight-bold">Productivity Est.</span>
+                    <div className="col-4">
+                      <span className="font-weight-bold">Sleep Duration (min)</span>
+                    </div>
+                    <div className="col-4">
+                      <span className="font-weight-bold">Productivity Est. (0-5)</span>
                     </div>
                   </div>
                   <TeamList team={this.state.team} self={this.props.user.id} />

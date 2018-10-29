@@ -1,0 +1,105 @@
+import sys
+import scipy
+import numpy
+import matplotlib
+import pandas
+import sklearn
+import random
+
+from pandas.plotting import scatter_matrix
+import matplotlib.pyplot as plt
+from sklearn import model_selection
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+
+# Load dataset
+path = "sleep_data_static.csv"
+names = ['duration', 'rem_minutes', 'rem_percent', 'class']
+dataset = pandas.read_csv(path, names=names)
+
+# # shape
+# print(dataset.shape)
+
+# # head
+# print(dataset.head(20))
+
+# # descriptions
+# print(dataset.describe())
+
+# # class distribution
+# print(dataset.groupby('class').size())
+
+# # box and whisker plots
+# dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+
+# # histograms
+# dataset.hist()
+
+# # scatter plot matrix
+# scatter_matrix(dataset)
+
+# Split-out validation dataset
+array = dataset.values
+X = array[:,0:3]
+Y = array[:,3]
+validation_size = 0.20
+seed = 7
+X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+
+# # Test options and evaluation metric
+# scoring = 'accuracy'
+
+# # Spot Check Algorithms
+# models = []
+# models.append(('LR', LogisticRegression()))
+# models.append(('LDA', LinearDiscriminantAnalysis()))
+# models.append(('KNN', KNeighborsClassifier()))
+# models.append(('CART', DecisionTreeClassifier()))
+# models.append(('NB', GaussianNB()))
+# models.append(('SVM', SVC()))
+# # evaluate each model in turn
+# results = []
+# names = []
+# for name, model in models:
+# 	kfold = model_selection.KFold(n_splits=10, random_state=seed)
+# 	cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+# 	results.append(cv_results)
+# 	names.append(name)
+# 	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+# 	# print(msg)
+
+# Make predictions on validation dataset
+model = DecisionTreeClassifier()
+model.fit(X_train, Y_train)
+predictions = model.predict(X_validation)
+# print(accuracy_score(Y_validation, predictions))
+# print(confusion_matrix(Y_validation, predictions))
+# print(classification_report(Y_validation, predictions))
+
+def run_random_prediction(n):
+	"""Print 'n' random productivity predictions"""
+	for i in range(n):
+		duration = (sys.argv[1])
+		rem = random.randint(60, 240)
+		percent_rem = rem/duration
+		Xnew = [[duration, rem, percent_rem]]
+		ynew = model.predict(Xnew)
+		print("X=%s, Predicted=%s" % (Xnew[0], ynew[0]))
+
+def get_prediction(num):
+  duration = (sys.argv[1])
+  rem = random.randint(60, 240)
+  percent_rem = rem/duration
+  Xnew = [[duration, rem, percent_rem]]
+  ynew = model.predict(Xnew)
+  print(ynew[0])
+  sys.stdout.flush()
+
+get_prediction(444)

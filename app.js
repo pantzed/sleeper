@@ -14,8 +14,7 @@ const port = process.env.PORT || 5000;
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const teamsRouter = require('./routes/teams');
-// const messagesRouter = require('./routes/messages');
-// const potentialMatches = require('./routes/potentialMatches');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,8 +25,6 @@ app.use(cookieParser());
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/teams', teamsRouter);
-// app.use('/messages', messagesRouter);
-// app.use('/potentialMatches', potentialMatches);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
