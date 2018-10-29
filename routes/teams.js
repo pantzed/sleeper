@@ -60,8 +60,8 @@ router.post('/productivity', (req, res) => {
   const pythonProcess = spawn('python', ["./sleepCalc.py", jsonThings])
   pythonProcess.stdout.on('data', (data) => {
     res.send([data.toString()]);
+    res.end();
   });
-  console.log('Server' + returnedPredictions);
 })
 
 module.exports = router;
