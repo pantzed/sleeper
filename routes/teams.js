@@ -57,7 +57,7 @@ router.post('/productivity', (req, res) => {
   let things = req.body[0].dataArray;
   let jsonThings = JSON.stringify(things);
   const spawn = require('child_process').spawn;
-  const pythonProcess = spawn('python', ["./test.py", jsonThings])
+  const pythonProcess = spawn('python', ["./sleepCalc.py", jsonThings])
   pythonProcess.stdout.on('data', (data) => {
     res.send([data.toString()]);
   });

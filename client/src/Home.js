@@ -12,7 +12,7 @@ class Home extends React.Component {
       <div className="main bg-image">
         <div className="row d-flex justify-content-center">
           <div className="col text-center py-5">
-            <h1 className="text-light">Sleeper</h1>
+            <h1 className="text-light">Sleep IQ</h1>
             <h2 className="text-light">The Application for Predicting Productivity</h2>
           </div>
         </div>
