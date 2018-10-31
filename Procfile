@@ -1,2 +1,2 @@
 web: node app.js
-worker: python sleepCalc.py
+pipinstall: pip install -r requirements.txt
