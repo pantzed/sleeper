@@ -95,7 +95,7 @@ class Profile extends React.Component {
                       <span className="font-weight-bold">Sleep Duration (min)</span>
                     </div>
                     <div className="col-4">
-                      <span className="font-weight-bold">Productivity Est. (0-5)</span>
+                      <span className="font-weight-bold">Productivity Est. (0-3)</span>
                     </div>
                   </div>
                   <TeamList team={this.state.team} self={this.props.user.id} />
@@ -107,8 +107,8 @@ class Profile extends React.Component {
                   <h4 className="color-blue">My Stats</h4>
                   <InfoBlock title={'Average Sleep Duration'} data={"7.2 hrs"} />
                   <InfoBlock title={'Most Recent Sleep Duration'} data={"8.1 hrs"} />
-                  <InfoBlock title={'Average Productivity'} data={"5"} />
-                  <InfoBlock title={'Max Productivity'} data={"8"} />
+                  <InfoBlock title={'Average Productivity'} data={"3"} />
+                  <InfoBlock title={'Max Productivity'} data={"3"} />
                   <InfoBlock title={'Min Productivity'} data={"1"} />
                 </div>
               </div>

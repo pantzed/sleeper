@@ -10,33 +10,33 @@ const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
 
-function getProductivity(num) {
-  const spawn = require('child_process').spawn;
-  const pythonProcess = spawn('python', ["./test.py", num])
-    pythonProcess.stdout.on('data', (data) => {
-    return data.toString();
-  });
-}
+// function getProductivity(num) {
+//   const spawn = require('child_process').spawn;
+//   const pythonProcess = spawn('python', ["./test.py", num])
+//     pythonProcess.stdout.on('data', (data) => {
+//     return data.toString();
+//   });
+// }
 
-router.get('/test', (req, res) => {
-  const spawn = require('child_process').spawn;
-  const pythonProcess = spawn('python', ["./test.py", 444])
-    pythonProcess.stdout.on('data', (data) => {
-    res.send(data.toString());
-  });
-})
+// router.get('/test', (req, res) => {
+//   const spawn = require('child_process').spawn;
+//   const pythonProcess = spawn('python', ["./test.py", 444])
+//     pythonProcess.stdout.on('data', (data) => {
+//     res.send(data.toString());
+//   });
+// })
 
-router.get('/est', (req, res) => {
-  res.send(getProductivity(444));
-})
+// router.get('/est', (req, res) => {
+//   res.send(getProductivity(444));
+// })
 
 
-router.get('/', (req, res) => {
-  knex('teams')
-  .then((data) => {
-    res.send(data);
-  })
-});
+// router.get('/', (req, res) => {
+//   knex('teams')
+//   .then((data) => {
+//     res.send(data);
+//   })
+// });
 
 router.get('/:id/:date', (req, res) => {
   const date = new Date();

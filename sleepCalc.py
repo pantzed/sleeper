@@ -19,7 +19,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-path = "sleep_data_static.csv"
+path = "sleep_data_1200.csv"
 names = ['duration', 'rem_minutes', 'rem_percent', 'class']
 dataset = pandas.read_csv(path, names=names)
 
