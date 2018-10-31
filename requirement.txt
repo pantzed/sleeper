@@ -1,7 +1,0 @@
-sys
-scipy
-numpy
-matplotlib
-pandas
-sklearn
-random
